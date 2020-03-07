@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TaskPreference;
+use App\Models\Team;
 use Illuminate\Http\Request;
 
-class TaskPreferenceController extends Controller
+class TeamController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class TaskPreferenceController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\TaskPreference  $taskPreference
+     * @param  \App\Models\Team  $team
      * @return \Illuminate\Http\Response
      */
-    public function show(TaskPreference $taskPreference)
+    public function show(Team $team)
     {
         //
     }
@@ -52,10 +52,10 @@ class TaskPreferenceController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\TaskPreference  $taskPreference
+     * @param  \App\Models\Team  $team
      * @return \Illuminate\Http\Response
      */
-    public function edit(TaskPreference $taskPreference)
+    public function edit(Team $team)
     {
         //
     }
@@ -64,10 +64,10 @@ class TaskPreferenceController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\TaskPreference  $taskPreference
+     * @param  \App\Models\Team  $team
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, TaskPreference $taskPreference)
+    public function update(Request $request, Team $team)
     {
         //
     }
@@ -75,10 +75,10 @@ class TaskPreferenceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\TaskPreference  $taskPreference
+     * @param  \App\Models\Team  $team
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TaskPreference $taskPreference)
+    public function destroy(Team $team)
     {
         //
     }
