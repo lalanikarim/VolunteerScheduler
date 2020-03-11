@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Volunteer;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class VolunteerController extends Controller
 {
@@ -15,6 +16,8 @@ class VolunteerController extends Controller
     public function index()
     {
         //
+        $volunteers = Volunteer::paginate(20);
+        return view('volunteer.list')->with(compact('volunteers'));
     }
 
     /**
@@ -36,6 +39,16 @@ class VolunteerController extends Controller
     public function store(Request $request)
     {
         //
+        $data = $request->validate($this->rules());
+
+        $volunteer = new Volunteer($data);
+        if($request->has('middle_name'))
+        {
+            $volunteer->middle_name = $request->input('middle_name');
+        }
+        $volunteer->save();
+
+        return redirect(route('volunteer-show',['volunteer' => $volunteer->id]));
     }
 
     /**
@@ -47,6 +60,7 @@ class VolunteerController extends Controller
     public function show(Volunteer $volunteer)
     {
         //
+        return view('volunteer.edit')->with(compact('volunteer'))->with('mode','show');
     }
 
     /**
@@ -58,6 +72,7 @@ class VolunteerController extends Controller
     public function edit(Volunteer $volunteer)
     {
         //
+        return view('volunteer.edit')->with(compact('volunteer'))->with('mode','edit');
     }
 
     /**
@@ -70,6 +85,16 @@ class VolunteerController extends Controller
     public function update(Request $request, Volunteer $volunteer)
     {
         //
+        $data = $request->validate($this->rules($volunteer->id));
+
+        $volunteer->fill($data);
+        if($request->has('middle_name'))
+        {
+            $volunteer->middle_name = $request->input('middle_name');
+        }
+        $volunteer->save();
+
+        return redirect(route('volunteer-show',['volunteer' => $volunteer->id]));
     }
 
     /**
@@ -81,5 +106,23 @@ class VolunteerController extends Controller
     public function destroy(Volunteer $volunteer)
     {
         //
+    }
+
+    private function rules($ignore = null)
+    {
+        $unique = Rule::unique('volunteers','bar_code');
+
+        if(isset($ignore))
+        {
+            $unique = $unique->ignore($ignore);
+        }
+
+        return [
+            'bar_code' => ['required',$unique],
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'phone_number' => 'required',
+            'email' => 'required'
+        ];
     }
 }
