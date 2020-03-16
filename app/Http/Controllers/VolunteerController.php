@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Team;
 use App\Models\Volunteer;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -106,6 +107,39 @@ class VolunteerController extends Controller
     public function destroy(Volunteer $volunteer)
     {
         //
+    }
+
+    public function team(Request $request, Volunteer $volunteer)
+    {
+        $data = $request->validate([
+            'team_id' => 'required|numeric|exists:teams,id',
+            'action' => 'required|in:add,remove'
+        ]);
+        $team = Team::where('id',$data["team_id"])->first();
+
+        $teamIds = $volunteer->teams->map(function($team){return $team->id;})->toArray();
+
+        if($data["action"] == 'add') {
+            if (! in_array($team->id, $teamIds)) {
+                $volunteer->teams()->save($team);
+            }
+        } else {
+            if(in_array($team->id, $teamIds))
+            {
+                $volunteer->teams()->detach($team->id);
+            }
+        }
+        return redirect(route('volunteer-show',['volunteer'=> $volunteer->id]));
+    }
+
+    public function removeteam(Volunteer $volunteer, Team $team)
+    {
+        if(contains($team, $volunteer->teams))
+        {
+            $volunteer->teams()->detach($team->id);
+        }
+        return redirect(route('volunteer-show',['volunteer'=> $volunteer->id]));
+
     }
 
     private function rules($ignore = null)

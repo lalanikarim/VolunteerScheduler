@@ -5,7 +5,11 @@
         <li class="list-group-item">
             Volunteers<br/>
             <a href="{{route('volunteer-list')}}">List</a><br/>
-            <a href="{{route('volunteer-new')}}">New</a>
+            <a href="{{route('volunteer-new')}}">New</a><br/>
+            <br/>
+            Teams<br/>
+            <a href="{{route('team-list')}}">List</a><br/>
+            <a href="{{route('team-new')}}">New</a><br/>
         </li>
     </ul>
 </div>

@@ -19,6 +19,8 @@ class CreateTeamVolunteerTable extends Migration
 
             $table->foreign('team_id')->references('id')->on('teams');
             $table->foreign('volunteer_id')->references('id')->on('volunteers');
+
+            $table->unique(['team_id','volunteer_id']);
         });
     }
 

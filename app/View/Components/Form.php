@@ -15,6 +15,7 @@ class Form extends Component
     public $paramsEdit;
 
     public $method;
+
     /**
      * Create a new component instance.
      *
