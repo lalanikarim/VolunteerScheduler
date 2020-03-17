@@ -6,10 +6,8 @@
     @csrf
     <input type="hidden" name="action" value="{{ $action }}">
     @if($action == 'remove')
-
-            <label class="col-form-label justify-content-start">{{ $team->name }}</label>
-            <input type="hidden" name="team_id" value="{{ $team->id }}">
-
+        <label class="col-form-label justify-content-start"><a href="{{ route('team-show',['team'=> $team->id]) }}">{{ $team->name }}</a></label>
+        <input type="hidden" name="team_id" value="{{ $team->id }}">
     @else
     <select name="team_id" class="custom-select">
         <option></option>

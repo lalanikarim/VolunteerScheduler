@@ -115,18 +115,18 @@ class VolunteerController extends Controller
             'team_id' => 'required|numeric|exists:teams,id',
             'action' => 'required|in:add,remove'
         ]);
-        $team = Team::where('id',$data["team_id"])->first();
+        $team_id = $data["team_id"];
 
         $teamIds = $volunteer->teams->map(function($team){return $team->id;})->toArray();
 
         if($data["action"] == 'add') {
-            if (! in_array($team->id, $teamIds)) {
-                $volunteer->teams()->save($team);
+            if (! in_array($team_id, $teamIds)) {
+                $volunteer->teams()->attach($team_id);
             }
         } else {
-            if(in_array($team->id, $teamIds))
+            if(in_array($team_id, $teamIds))
             {
-                $volunteer->teams()->detach($team->id);
+                $volunteer->teams()->detach($team_id);
             }
         }
         return redirect(route('volunteer-show',['volunteer'=> $volunteer->id]));

@@ -34,3 +34,10 @@ Route::get('/team/{team}','TeamController@show')->name('team-show');
 Route::post('/team/{team}','TeamController@update')->name('team-update');
 Route::get('/team/{team}/edit','TeamController@edit')->name('team-edit');
 Route::post('/team/{team}/volunteers','TeamController@volunteers')->name('team-volunteers');
+
+Route::get('/eventtype','EventTypeController@index')->name('event-type-list');
+Route::view('/eventtype/new','eventtype.edit',['mode'=> 'new'])->name('event-type-new');
+Route::post('/eventtype/store','EventTypeController@store')->name('event-type-store');
+Route::get('/eventtype/{eventType}','EventTypeController@show')->name('event-type-show');
+Route::post('/eventtype/{eventType}','EventTypeController@update')->name('event-type-update');
+Route::get('/eventtype/{eventType}/edit','EventTypeController@edit')->name('event-type-edit');

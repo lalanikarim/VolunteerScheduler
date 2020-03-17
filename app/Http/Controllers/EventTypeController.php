@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\EventType;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class EventTypeController extends Controller
 {
@@ -15,6 +16,8 @@ class EventTypeController extends Controller
     public function index()
     {
         //
+        $eventTypes = EventType::paginate(20);
+        return view('eventtype.list')->with(compact('eventTypes'));
     }
 
     /**
@@ -36,6 +39,14 @@ class EventTypeController extends Controller
     public function store(Request $request)
     {
         //
+        $data = $request->validate([
+            "name" => 'required|unique:event_types'
+        ]);
+
+        $eventType = new EventType($data);
+        $eventType->save();
+
+        return redirect(route('event-type-show',['eventType' => $eventType->id]));
     }
 
     /**
@@ -47,6 +58,7 @@ class EventTypeController extends Controller
     public function show(EventType $eventType)
     {
         //
+        return view('eventtype.edit')->with(compact('eventType'))->with('mode','show');
     }
 
     /**
@@ -58,6 +70,7 @@ class EventTypeController extends Controller
     public function edit(EventType $eventType)
     {
         //
+        return view('eventtype.edit')->with(compact('eventType'))->with('mode','edit');
     }
 
     /**
@@ -70,6 +83,14 @@ class EventTypeController extends Controller
     public function update(Request $request, EventType $eventType)
     {
         //
+        $data = $request->validate([
+            "name" => ['required',Rule::unique('event_types')->ignore($eventType->id)]
+        ]);
+
+        $eventType->fill($data);
+        $eventType->save();
+
+        return redirect(route('event-type-show',['eventType' => $eventType->id]));
     }
 
     /**

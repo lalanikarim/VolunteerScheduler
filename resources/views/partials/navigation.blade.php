@@ -10,6 +10,11 @@
             Teams<br/>
             <a href="{{route('team-list')}}">List</a><br/>
             <a href="{{route('team-new')}}">New</a><br/>
+            <br/>
+            Event Types<br/>
+            <a href="{{route('event-type-list')}}">List</a><br/>
+            <a href="{{route('event-type-new')}}">New</a><br/>
+            <br/>
         </li>
     </ul>
 </div>
