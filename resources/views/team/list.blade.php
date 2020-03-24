@@ -17,7 +17,10 @@
                 @foreach($teams as $team)
                     <tr>
                         <th><a href="{{ route('team-show',['team' => $team->id]) }}">{{$team->name}}</a></th>
-                        <td><a href="{{ route('volunteer-show', ['volunteer' => $team->lead_id]) }}">{{$team->lead->fullName()}}</a></td>
+                        <td>@if(isset($team->lead_id))
+                            <a href="{{ route('volunteer-show', ['volunteer' => $team->lead_id]) }}">{{$team->lead->fullName()}}</a>
+                            @endif
+                        </td>
                         <td></td>
                     </tr>
                 @endforeach

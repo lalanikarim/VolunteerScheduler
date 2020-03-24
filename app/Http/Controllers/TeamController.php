@@ -128,7 +128,7 @@ class TeamController extends Controller
 
         return [
             'name' => ['required',$unique],
-            'lead_id' => 'required|exists:volunteers,id',
+            'lead_id' => 'nullable|exists:volunteers,id',
         ];
     }
 }

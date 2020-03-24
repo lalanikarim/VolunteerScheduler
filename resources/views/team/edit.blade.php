@@ -20,6 +20,7 @@
                         <x-input type="text" :model='$team' name="name" :mode="$mode"/>
                     </div>
                 </div>
+                @if(($mode == 'show' && isset($team->lead_id)) || ($mode != 'show' && $volunteers->count() > 0))
                 <div class="form-group row">
                     <label for="sel_lead_id" class="col-sm-2 col-form-label">Lead</label>
                     <div class="col-sm-10">
@@ -34,6 +35,7 @@
                         />
                     </div>
                 </div>
+                @endif
                 <x-slot name="formButtons">
                     <div class="form-group row">
                         <div class="col-sm-10 offset-2">
@@ -51,7 +53,7 @@
                 </x-slot>
             </x-form>
 
-            @if($mode == 'show')
+            @if($mode == 'show' && $volunteers->count() > 0)
                 <x-list-selector
                     :left="$volunteers"
                     :right="$team->volunteers"

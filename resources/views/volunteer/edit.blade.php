@@ -87,9 +87,9 @@ if(!isset($volunteer)) {
                         </tr>
                         @endif
                         @endforeach
-                        @if($volunteer->teams->count() > 0)
+                        @if($volunteer->teams->count() > 0 && $teams->whereNotIn('id',  $volunteer->teams->map(function($team){ return $team->id;}))->count() > 0)
                         <tr>
-                            <x-volunteer-team-row :volunteer="$volunteer" team :teams="$teams" action="add"/>
+                            <x-volunteer-team-row :volunteer="$volunteer" team :teams="$teams->whereNotIn('id',  $volunteer->teams->map(function($team){ return $team->id;})->toArray())" action="add"/>
                         </tr>
                         @endif
                     </table>

@@ -16,8 +16,10 @@ class CreateTeamsTable extends Migration
         Schema::create('teams', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name',100);
-            $table->unsignedBigInteger('lead_id');
+            $table->unsignedBigInteger('lead_id')->nullable();
             $table->timestamps();
+
+            $table->foreign('lead_id')->references('id')->on('volunteers');
         });
     }
 
